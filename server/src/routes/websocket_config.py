@@ -1,7 +1,6 @@
-from fastapi import WebSocket, Depends, HTTPException, status
+from fastapi import WebSocket, HTTPException, status
 from sqlalchemy.orm import Session
 from src.database.model import User
-import json
 
 def get_user_by_id(user_id: int, db: Session) -> User:
     user = db.query(User).filter(User.id == user_id).first()
@@ -26,7 +25,6 @@ class ConnectionManager:
     async def send_message_to(self, message: str, sender_id: int, target_user_id: int):
         websocket = self.active_connections.get(target_user_id)
         if websocket:
-            # await websocket.send_text(message)
             payload = {
                 "sender_id": sender_id,
                 "message": message
@@ -34,19 +32,3 @@ class ConnectionManager:
 
             await websocket.send_json(payload)
 
-
-
-
-# @app.websocket("/ws/{user_id}")
-# async def websocket_endpoint(websocket: WebSocket, user_id: str):
-#     await manager.connect(user_id, websocket)
-#     try:
-#         while True:
-#             data = await websocket.receive_text()
-#             # Expect data like "to:Bob|Hello"
-#             if "|" in data:
-#                 target, msg = data.split("|", 1)
-#                 target = target.replace("to:", "")
-#                 await manager.send_personal_message(f"{user_id} says: {msg}", target)
-#     except WebSocketDisconnect:
-#         manager.disconnect(user_id)

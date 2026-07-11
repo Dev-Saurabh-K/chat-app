@@ -29,6 +29,6 @@ async def websocket_endpoint(
     try:
         while True:
             data = await websocket.receive_text()
-            await websocket.send_text(f"Message text was: {data}")
+            await manager.send_message_to(message=data, sender_id=from_id, target_user_id=to_id)
     except WebSocketDisconnect:
         manager.disconnect(from_id)
