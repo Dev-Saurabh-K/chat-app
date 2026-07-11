@@ -1,15 +1,15 @@
 from fastapi import WebSocket, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from src.database.model import User, get_db
+from src.database.model import User
+import json
 
-def ws_get_user(user_id: int | None, db: Session = Depends(get_db)):
-    # handle none user_id if error or problem
-
+def get_user_by_id(user_id: int, db: Session) -> User:
     user = db.query(User).filter(User.id == user_id).first()
-    
     if user is None:
-        raise  HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not registered")
-    
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, 
+            detail=f"User with ID {user_id} is not registered"
+        )
     return user
 
 class ConnectionManager:
@@ -23,10 +23,20 @@ class ConnectionManager:
     def disconnect(self, user_id: int):
         self.active_connections.pop(user_id, None)
     
-    async def send_message_to(self, message: str, target_user_id: int):
+    async def send_message_to(self, message: str, sender_id: int, target_user_id: int):
         websocket = self.active_connections.get(target_user_id)
         if websocket:
-            await websocket.send_text(message)
+            # await websocket.send_text(message)
+            payload = {
+                "sender_id": sender_id,
+                "message": message
+            }
+
+            await websocket.send_json(payload)
+
+
+
+
 # @app.websocket("/ws/{user_id}")
 # async def websocket_endpoint(websocket: WebSocket, user_id: str):
 #     await manager.connect(user_id, websocket)
