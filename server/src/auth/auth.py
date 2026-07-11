@@ -5,12 +5,17 @@ from fastapi import HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from src.database.model import get_db, User
+import os
 
 
-
-SECRET_KEY = "ssjspkvic@gmail.comemail"
-ALGORITHM = "HS256"
+SECRET_KEY = os.getenv("SECRET_KEY") 
+ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = 600
+
+if not SECRET_KEY or not ALGORITHM:
+    raise RuntimeError("SECRET_KEY and ALGORITHM must be set in environment")
+
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 password_hash = PasswordHash.recommended()
@@ -35,13 +40,13 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
 
     to_encode.update({"exp": expire})
 
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM) # type: ignore
 
     return encoded_jwt
     
 def decode_access_token(token: str) -> dict:
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM]) # type: ignore
         return payload
     except jwt.ExpiredSignatureError:
         raise HTTPException(
