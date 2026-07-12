@@ -2,7 +2,7 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends, Query, H
 
 from sqlalchemy.orm import Session
 from .websocket_config import get_user_by_id, ConnectionManager
-from src.database.model import get_db
+from src.database.model import get_db, Message
 
 router = APIRouter()
 manager = ConnectionManager()
@@ -29,6 +29,13 @@ async def websocket_endpoint(
     try:
         while True:
             data = await websocket.receive_text()
+
+            # save message
+            save_message = Message(sender_id=from_id, receiver_id=to_id, content=data)
+            db.add(save_message)
+            db.commit()
+            
             await manager.send_message_to(message=data, sender_id=from_id, target_user_id=to_id)
+
     except WebSocketDisconnect:
         manager.disconnect(from_id)

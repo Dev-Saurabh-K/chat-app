@@ -1,3 +1,12 @@
+# comming soon --
+1. profile picture
+2. profile edit
+3. group creation
+4. file sharing
+5. voice call
+6. video call
+
+
 # Chat Application - Complete API Documentation
 
 A real-time chat application built with **FastAPI** (backend) and **React** (frontend), featuring user authentication via JWT tokens and WebSocket-based real-time messaging.

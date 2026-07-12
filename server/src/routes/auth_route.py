@@ -7,7 +7,7 @@ from src.database.model import get_db, User
 from src.auth.auth import verify_password, hash_password, create_access_token, get_current_user
 from src.schema.user import RegisterResponse, LoginResponse
 
-router = APIRouter(prefix="/auth", tags=["Auth"])
+router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.get("/test")
 def test_auth(current_user: User = Depends(get_current_user)):

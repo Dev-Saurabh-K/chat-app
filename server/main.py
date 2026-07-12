@@ -5,9 +5,7 @@ from src.database import model
 from src.database.setup import engine
 from src.database.model import get_db, User
 
-from src.routes import auth_route
-from src.routes import websocket_route
-
+from src.routes import auth_route, websocket_route, message_route
 
 model.Base.metadata.create_all(bind=engine)
 
@@ -15,6 +13,7 @@ app = FastAPI()
 
 app.include_router(auth_route.router)
 app.include_router(websocket_route.router)
+app.include_router(message_route.router)
 
 @app.get("/test")
 def test():
