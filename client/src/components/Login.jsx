@@ -3,12 +3,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { LogIn } from "lucide-react";
+import {useDataStore} from "../store/userdataStore"
 
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const URL = `${import.meta.env.VITE_API_URL}/auth/login`;
   const navigate = useNavigate();
+  const setUser_id = useDataStore((state)=>state.setUser_id);
+  const setUser_name = useDataStore((state)=>state.setUser_name);
 
   const handleLogin = async () => {
     try {
@@ -24,7 +27,8 @@ export const Login = () => {
           },
         },
       );
-      console.log(loginresponse.data.access_token);
+      setUser_id(loginresponse.data.id)
+      setUser_name(loginresponse.data.username)
       localStorage.setItem(loginresponse.data.access_token, "access_token");
       navigate("/chat")
     } catch (error) {
