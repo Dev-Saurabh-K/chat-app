@@ -18,11 +18,16 @@ export const Register = () => {
         password: password,
       });
       console.log(registerResponse.data);
+       navigate("/")
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        console.error(error.response.data);
+      } else {
+        console.error(error);
+      }
     }
 
-    // navigate("/")
+   
   };
 
   const handleClickOnRegistered = () => {
