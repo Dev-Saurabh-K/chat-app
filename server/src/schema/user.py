@@ -16,3 +16,9 @@ class LoginResponse(BaseModel):
     token_type: str
     username: str
     id: int
+
+class UserListResponse(BaseModel):
+    id: int
+    username: str
+    active_status: bool
+    created_at: datetime

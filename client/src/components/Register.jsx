@@ -45,6 +45,7 @@ export const Register = () => {
               className="focus:outline-none caret-[#65DCD5] border border-[#43637E] focus:border-[#65DCD5] rounded-md"
               onChange={(e) => setUsername(e.target.value)}
               value={username}
+              placeholder="username"
             />
           </label>
           <label htmlFor="password" className="flex gap-2">
@@ -54,6 +55,7 @@ export const Register = () => {
               className="focus:outline-none caret-[#65DCD5] border border-[#43637E] focus:border-[#65DCD5] rounded-md"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
+              placeholder="password"
             />
           </label>
         </div>

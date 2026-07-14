@@ -16,7 +16,7 @@ class ConnectionManager:
         self.active_connections: dict[int, WebSocket] = {}
     
     async def connect(self, user_id: int, websocket: WebSocket):
-        await websocket.accept()
+        # await websocket.accept()
         self.active_connections[user_id] = websocket
     
     def disconnect(self, user_id: int):
@@ -29,6 +29,6 @@ class ConnectionManager:
                 "sender_id": sender_id,
                 "message": message
             }
-
             await websocket.send_json(payload)
+            
 

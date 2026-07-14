@@ -29,7 +29,7 @@ export const Login = () => {
       );
       setUser_id(loginresponse.data.id)
       setUser_name(loginresponse.data.username)
-      localStorage.setItem(loginresponse.data.access_token, "access_token");
+      localStorage.setItem("access_token",loginresponse.data.access_token);
       navigate("/chat")
     } catch (error) {
       if (error.response) {
@@ -55,7 +55,7 @@ export const Login = () => {
               type="text"
               className="focus:outline-none caret-[#65DCD5] border border-[#43637E] focus:border-[#65DCD5] rounded-md"
               onChange={(e) => setUsername(e.target.value)}
-              value={username}
+              value={username} placeholder="username"
             />
           </label>
           <label htmlFor="password" className="flex gap-2">
@@ -65,6 +65,7 @@ export const Login = () => {
               className="focus:outline-none caret-[#65DCD5] border border-[#43637E] focus:border-[#65DCD5] rounded-md"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
+              placeholder="password"
             />
           </label>
         </div>

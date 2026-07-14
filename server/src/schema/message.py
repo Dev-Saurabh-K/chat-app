@@ -5,5 +5,6 @@ class MessageRetrieveResponse(BaseModel):
     id: int
     sender_id: int
     receiver_id: int
+    status: int
     content: str
     created_at: datetime
