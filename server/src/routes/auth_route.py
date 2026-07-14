@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from src.database.model import get_db, User
 from src.auth.auth import verify_password, hash_password, create_access_token, get_current_user
-from src.schema.user import RegisterResponse, LoginResponse
+from src.schema.user import RegisterResponse, LoginResponse, RegisterRequest
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -18,7 +18,7 @@ def test_auth(current_user: User = Depends(get_current_user)):
     )
 
 @router.post("/register", response_model=RegisterResponse)
-def register(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def register(form_data: RegisterRequest, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == form_data.username).first()
 
     if user:

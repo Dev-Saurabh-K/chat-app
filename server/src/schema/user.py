@@ -1,6 +1,10 @@
 from pydantic import BaseModel
 from datetime import datetime
 
+class RegisterRequest(BaseModel):
+    username: str
+    password: str
+
 class RegisterResponse(BaseModel):
     id: int
     username: str

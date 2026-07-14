@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+    --font-display: "Black Ops One", system-ui;
+    --font-roboto: "Roboto", sans-serif;
+}
+
+/* dark for buttons - 321E48
+light dark for bg - 43637E
+dark light for forground - 65DCD5
+light for texts - D9FFF4 */
