@@ -14,3 +14,5 @@ class RegisterResponse(BaseModel):
 class LoginResponse(BaseModel):
     access_token: str
     token_type: str
+    username: str
+    id: int
