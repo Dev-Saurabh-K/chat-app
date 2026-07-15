@@ -1,12 +1,14 @@
 
 function Logo() {
   return (
-    <div className="flex flex-row text-2xl font-display">
-        <div className="text-mauve-800">chat</div>
-        <div className="text-mauve-900">-</div>
-        <div className="text-mauve-950">app</div>
+    <div className="flex items-center font-outfit select-none">
+      <div className="flex flex-row text-2xl font-bold tracking-tight">
+        <span className="text-brand-mint font-extrabold">Chat</span>
+        <span className="text-brand-teal font-extrabold">-</span>
+        <span className="text-brand-slate font-light">app</span>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Logo
+export default Logo;
