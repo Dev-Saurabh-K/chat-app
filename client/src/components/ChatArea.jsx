@@ -17,6 +17,7 @@ import { useToStore } from "../store/toStore";
 import { useDataStore } from "../store/userdataStore";
 import { usePeopleDataStore } from "../store/peopleDataStore";
 import { useChatStore } from "../store/chatStore";
+import bgImage from "../assets/bg.png";
 
 const EMOJIS = ["😀", "😂", "🥰", "😍", "👍", "🔥", "🎉", "❤️", "🙌", "✨", "🚀", "💡", "👀", "🤔", "👏", "💩"];
 
@@ -219,7 +220,15 @@ export const ChatArea = ({ onBackMobile }) => {
   const groupedMessages = getGroupedMessages();
 
   return (
-    <div className="flex-1 h-full flex flex-col glass-panel-light rounded-r-2xl border-l border-brand-teal/10 relative overflow-hidden">
+    <div
+      className="flex-1 h-full flex flex-col glass-panel-light rounded-r-2xl border-l border-brand-teal/10 relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       {/* Header */}
       <div className="h-16 border-b border-brand-teal/10 bg-brand-deep/80 backdrop-blur-md px-4 flex items-center justify-between z-10">
         <div className="flex items-center gap-3">
